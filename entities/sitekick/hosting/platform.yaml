@@ -1,0 +1,7 @@
+# Relations don't have to be defined on both ends; domains are sufficient. If definition is repeated, MUST BE identical,
+# otherwise, an exception is raised.
+relationships:
+    sitekick/hosting/domain:  # No spec; is done in domains
+        cardinality:
+            from: 0, 1
+            to: ">= 0"

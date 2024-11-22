@@ -1,0 +1,26 @@
+key-names:
+    - domain
+
+properties:
+    foo:
+        bar: 1
+        baz: 42
+
+attributes:
+    type: JsonStrInt
+    index:
+        tld: << functions.hosting.get_tld(self.key) >> (str)  # Automatic calculation
+        sld: << functions.hosting.get_sld(self.key) >> (str)  # Automatic calculation
+
+relationships:
+    sitekick/hosting/platform:
+        cardinality:
+            # Cardinality can be 1-1, 1-inf, inf-1 and inf-inf and optional.
+            # (https://vertabelo.com/blog/cardinality-in-data-modeling/)
+            # The cardinality is indicated using the possible counts of the relation.
+            from: ">= 0"  # One platform can have 0 or more domains
+            to: "(0, 1)"  # a domain has an optional platform
+    sitekick/hosting/server:
+        cardinality:
+            from: ">= 0"  # One server can have 0 or more domains
+            to: "0, 1"  # a domain has an optional server. Actually, can be hosted on several servers, so e.g. "< 5"?
